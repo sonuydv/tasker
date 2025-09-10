@@ -1,27 +1,37 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+import * as mongoose  from 'mongoose';
+import * as process from 'node:process';
+import createApp from './app';
+import * as http from 'node:http';
+import config from './config';
+import { logger } from 'nx/src/utils/logger';
+import { attachSocket } from './sockets/socket';
 
-import express from 'express';
-import * as path from 'path';
+async function start(){
+  const app = createApp();
+  const server = http.createServer(app);
 
-const app = express();
+  /*Attach socket.io*/
+  const io = attachSocket(server);
+  //Storing the io instance in app for later use in controllers
+  app.set('io', io);
 
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+  /*Connect Mongodb*/
+  try{
+    await mongoose.connect(config.mongoUrl);
+    logger.info('Connected to MongoDB');
+  }catch (err){
+    console.error('Error connecting to MongoDB', err);
+    process.exit(1);
+  }
 
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to tasker-api!' });
+  server.listen(config.port, () => {
+    logger.info(`Frontend app served at http://localhost:${config.port}`);
+    logger.info(`Backend at http://localhost:${config.port}/api`);
+  });
+  server.on('error', logger.error);
+}
+
+start().catch(err => {
+  logger.error('Error starting server');
+  process.exit(1);
 });
-
-// Serve Angular build
-app.use(express.static(path.join(__dirname, 'frontend')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/index.html'));
-});
-
-const port = process.env.PORT || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
-});
-server.on('error', console.error);
