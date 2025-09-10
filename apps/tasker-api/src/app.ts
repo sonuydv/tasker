@@ -25,9 +25,6 @@ export default function createApp(){
     res.sendFile(path.join(__dirname, 'frontend/index.html'));
   });
 
-
-
-
   return app;
 }
 

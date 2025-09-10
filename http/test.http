@@ -1,0 +1,27 @@
+
+### Login
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "sonu@example.com",
+  "password": "pass"
+}
+
+
+### Register
+POST {{url}}/auth/register
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "sonu@example.com",
+  "password": "pass"
+}
+
+
+
+### Get Tasks
+GET {{url}}/tasks
+Accept: application/json
