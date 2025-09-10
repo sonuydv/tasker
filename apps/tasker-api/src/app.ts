@@ -16,7 +16,7 @@ export default function createApp(){
 
 
   //Routes
-  app.use('/api/auth',authController);
+  app.use('/api/asdf',authController);
   app.use('/api/tasks',tasksController);
 
   // Serve Angular build

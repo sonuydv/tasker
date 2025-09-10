@@ -1,0 +1,67 @@
+<div class="auth-wrapper">
+  <div class="card">
+    <div class="card-body fx-clm-hr-vr-cn">
+      <h2 class="">
+        @if(mode === 'login') { Login } @else { Sign Up }
+      </h2>
+
+      <form class="form-container wf fx-clm" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        @if(mode === 'register') {
+          <div class="form-field">
+            <label class="form-label">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" />
+            @if(form.controls['firstName']?.invalid && form.controls['firstName']?.touched) {
+              <small class="text-danger">First name is required</small>
+            }
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control" />
+            @if(form.controls['lastName']?.invalid && form.controls['lastName']?.touched) {
+              <small class="text-danger">Last name is required</small>
+            }
+          </div>
+        }
+
+        <div class="form-field">
+          <label class="form-label">Email</label>
+          <input type="email" formControlName="email" class="form-control" />
+          @if(form.controls['email']?.invalid && form.controls['email']?.touched) {
+            <small class="text-danger">Valid email is required</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Password</label>
+          <input type="password" formControlName="password" class="form-control" />
+          @if(form.controls['password']?.invalid && form.controls['password']?.touched) {
+            <small class="text-danger">
+              @if(mode === 'login') { Password is required }
+              @else { Minimum 6 characters }
+            </small>
+          }
+        </div>
+
+        <button type="submit" class="btn fx-r-cn" [disabled]="form.invalid">
+          @if(mode === 'login') { Login } @else { Register }
+<!--          <div class="loader"></div>-->
+        </button>
+      </form>
+
+      <div class="">
+        @if(mode === 'login') {
+          <span>Don't have an account?
+            <a href="javascript:void(0)" (click)="switchMode('register')">Register</a>
+          </span>
+        } @else {
+          <span>Already have an account?
+            <a href="javascript:void(0)" (click)="switchMode('login')">Login</a>
+          </span>
+        }
+      </div>
+
+    </div>
+  </div>
+</div>

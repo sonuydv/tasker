@@ -1,0 +1,82 @@
+:host{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f8fd;
+}
+.auth-wrapper{
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
+
+.card-body{
+  min-width: 400px;
+  padding-bottom: 1rem;
+
+  .form-container{
+    padding: 0 1.5rem 0.5rem 1.5rem;
+  }
+}
+
+.form-field{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+
+  input{
+    padding: 4px 6px;
+    height: 40px;
+    font-size: 1.06rem;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .text-danger{
+    color: #c41111;
+  }
+}
+
+.btn{
+  width: 100%;
+  border-radius: 5px;
+  padding: 0.8rem 1rem;
+  outline: none;
+  border: none;
+}
+
+.btn{
+  background:   rgba(0, 122, 204, 1);
+  color: white;
+}
+.btn:hover{
+  cursor: pointer;
+}
+
+.btn:disabled{
+  cursor: not-allowed;
+}
+
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 20px;
+  padding: 4px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: white;
+  --_m:
+    conic-gradient(#0000 10%,#000),
+    linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {to{transform: rotate(1turn)}}
