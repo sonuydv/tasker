@@ -1,11 +1,26 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { AuthApi } from './api/auth.api';
+import { finalize, tap } from 'rxjs';
+import { LocalStore } from '../../util/local.store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-asdf',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule],
+  providers: [AuthApi],
   templateUrl: './auth.html',
   styleUrl: './auth.css',
 })
@@ -13,7 +28,12 @@ export class Auth {
   mode: 'login' | 'register' = 'login'; // default
 
   protected form: FormGroup;
-  protected readonly fb = inject(FormBuilder);
+  private readonly fb = inject(FormBuilder);
+  private authApi = inject(AuthApi);
+  private localStore = inject(LocalStore);
+  private router = inject(Router);
+
+  protected isLoading = signal<boolean>(false);
 
   constructor() {
     this.buildForm();
@@ -42,7 +62,35 @@ export class Auth {
 
   onSubmit() {
     if (this.form?.valid) {
-      console.log(this.form.value);
+      this.isLoading.set(true);
+      if (this.mode === 'register') {
+        this.authApi
+          .register(this.form.value)
+          .pipe(
+            finalize(() => {
+              this.isLoading.set(false);
+            }),
+            tap((userInfo) => {
+              this.localStore.setSessionData(userInfo);
+              this.router.navigateByUrl('/');
+            })
+          )
+          .subscribe();
+      } else {
+        const { email, password } = this.form.value;
+        this.authApi
+          .login(email, password)
+          .pipe(
+            finalize(() => {
+              this.isLoading.set(false);
+            }),
+            tap((userInfo) => {
+              this.localStore.setSessionData(userInfo);
+              this.router.navigateByUrl('/');
+            })
+          )
+          .subscribe();
+      }
     }
   }
 }

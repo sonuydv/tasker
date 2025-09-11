@@ -1,7 +1,32 @@
-<header>
-  <h4>Tasks</h4>
+<header class="fx-r">
+  <div class="fx-r gap-05">
+    <h2>All</h2>
+    <button mat-icon-button>
+      <mat-icon>arrow_drop_down_circle</mat-icon>
+    </button>
+  </div>
+  <div class="search-bar fx-r gap-05">
+    <mat-icon>search</mat-icon>
+    <input placeholder="Search tasks..." />
+  </div>
+  <button class="ml-auto add-btn fx-r">
+    New Task
+    <mat-icon>add</mat-icon>
+  </button>
 </header>
 
 <section>
-
+  @if (isLoading()) {
+    <p>Loading ...</p>
+  } @else {
+    @if(tasks().length > 0){
+      @if (viewMode() === 'default') {
+        <app-card-view [tasks]="tasks()"></app-card-view>
+      } @else {
+        <app-board-view [tasks]="tasks()"></app-board-view>
+      }
+    } @else {
+      <p>Not Found!</p>
+    }
+  }
 </section>

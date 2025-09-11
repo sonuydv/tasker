@@ -49,9 +49,12 @@ export async function login(req:Request,res:Response){
 
   // Send token as HTTP-only cookie
   res.cookie('token', token, {
-    httpOnly: false,
-    maxAge: 60 * 60 * 1000 // 1 hour
+    httpOnly: true,
+    secure: false,
+    sameSite: config.nodeEnv !== 'development' ? 'none' : 'lax',
+    maxAge: 60 * 60 * 1000
   });
+
 
   res.json({id: user._id,firstName:user.firstName,lastName:user.lastName, email: user.email,token });
 }

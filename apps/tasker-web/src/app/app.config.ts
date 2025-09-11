@@ -1,14 +1,17 @@
 import {
-  ApplicationConfig,
+  ApplicationConfig, ErrorHandler,
   provideBrowserGlobalErrorListeners,
-  provideZoneChangeDetection,
+  provideZoneChangeDetection
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
-import { provideStore, withNgxsDevelopmentOptions } from '@ngxs/store';
+import { provideStore } from '@ngxs/store';
 import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
 import { withNgxsLoggerPlugin } from '@ngxs/logger-plugin';
-import { factory } from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { AppErrorHandler } from './util/app-error.handler';
+import { environment } from '../environments/environment';
+import { errorInterceptor } from './util/http.interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +22,14 @@ export const appConfig: ApplicationConfig = {
       withNgxsLoggerPlugin({disabled:false}),
       withNgxsReduxDevtoolsPlugin(),
       ),
+    provideHttpClient(withInterceptors([errorInterceptor])),
+    {
+      provide:'API_URL',
+      useValue:environment.apiUrl
+    },
+    {
+      provide:ErrorHandler,
+      useClass:AppErrorHandler,
+    }
   ],
 };

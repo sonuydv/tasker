@@ -26,13 +26,13 @@ h1,h2,h3,h4,h5,h6,p,a,span,div{
 /*-----color theme-------*/
 :root{
   --clr-ac-dark: #025f9d;
-  --clr-ac: #027BCCFF;
+  --clr-ac:#5c90e7;
   --clr-ac-light: #55b7f8;
 
   --clr-sc-dark:  #f5f8fd;
   --clr-sc: white;
 
-  --clr-pr : black;
+  --clr-pr : #5e5d5d;
   --clr-pr-light: #484747;
 
   --clr-wt: #ffffff;
@@ -67,7 +67,7 @@ h1,h2,h3,h4,h5,h6,p,a,span,div{
 
 /*----------Margin--------------------*/
 .ml-auto{margin-left: auto;}
-.mt-auto{margin-left: auto;}
+.mt-auto{margin-top: auto;}
 
 
 
@@ -153,6 +153,10 @@ h1,h2,h3,h4,h5,h6,p,a,span,div{
   gap: 1em;
 }
 
+/*-------flex sizing-------*/
+.fx-grow{
+  flex-grow: 1;
+}
 
 /*------------gap--------------*/
 .gap-05{gap: 0.5em;}

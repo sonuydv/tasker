@@ -44,9 +44,12 @@
           }
         </div>
 
-        <button type="submit" class="btn fx-r-cn" [disabled]="form.invalid">
-          @if(mode === 'login') { Login } @else { Register }
-<!--          <div class="loader"></div>-->
+        <button type="submit" class="btn fx-r-cn" [disabled]="isLoading() || form.invalid">
+          @if (isLoading()){
+            <div class="loader"></div>
+          } @else {
+            @if(mode === 'login') { Login } @else { Register }
+          }
         </button>
       </form>
 

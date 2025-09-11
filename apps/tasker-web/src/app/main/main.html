@@ -3,13 +3,16 @@
     <mat-icon>check_circle_outline</mat-icon>
     <h3>Tasker</h3>
   </div>
-  <div class=" ml-auto fx-r">
-    <mat-icon>person</mat-icon>
-    <p>Sonu Yadav</p>
-    <button mat-icon-button>
-      <mat-icon>exit_to_app</mat-icon>
-    </button>
-  </div>
+  @if (user();as userInfo){
+    <div class=" ml-auto fx-r">
+      <mat-icon>person</mat-icon>
+      <p>{{userInfo.firstName}} {{userInfo.lastName}}</p>
+      <button mat-icon-button>
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </div>
+  }
+
 </header>
 <section class="main">
   <app-tasks class="tasks"></app-tasks>

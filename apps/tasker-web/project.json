@@ -8,11 +8,15 @@
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/tasker-web",
         "browser": "apps/tasker-web/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/tasker-web/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -21,7 +25,9 @@
             "input": "apps/tasker-web/public"
           }
         ],
-        "styles": ["apps/tasker-web/src/styles.scss"]
+        "styles": [
+          "apps/tasker-web/src/styles.scss"
+        ]
       },
       "configurations": {
         "production": {
@@ -42,7 +48,13 @@
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/tasker-web/src/environments/environment.ts",
+              "with": "apps/tasker-web/src/environments/environment.development.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
@@ -50,6 +62,9 @@
     "serve": {
       "continuous": true,
       "executor": "@angular/build:dev-server",
+      "options": {
+        "proxyConfig": "apps/tasker-web/proxy.config.json"
+      },
       "configurations": {
         "production": {
           "buildTarget": "tasker-web:build:production"
@@ -71,7 +86,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/tasker-web/jest.config.ts",
         "tsConfig": "apps/tasker-web/tsconfig.spec.json"

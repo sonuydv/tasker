@@ -11,9 +11,8 @@ export interface AuthRequest extends Request {
 }
 
 export function authMiddleware(req: AuthRequest, res: Response, next: NextFunction) {
-  const authHeader = req.headers['authorization'] || req['cookies']?.token;
-  if (authHeader && authHeader.startsWith('Bearer ')) {
-    const token = authHeader.split(' ')[1];
+  const token = extractToken(req);
+  if (token) {
     try {
       const decoded = jwt.verify(token, config.jwtSecret) as { id: string; email: string };
       req.user = { id: decoded.id, email: decoded.email };
@@ -26,4 +25,17 @@ export function authMiddleware(req: AuthRequest, res: Response, next: NextFuncti
   }
 }
 
+function extractToken(req: Request): string | null {
+  // Check Authorization header
+  const authHeader = req.headers['authorization'];
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    return authHeader.substring(7); // remove "Bearer "
+  }
 
+  // Check cookies
+  if (req.cookies?.token) {
+    return req.cookies.token;
+  }
+
+  return null;
+}

@@ -1,7 +1,11 @@
 :host{
   width: 100%;
   height: 100%;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  background: radial-gradient(circle,rgba(175, 187, 240, 1) 0%, rgba(228, 235, 247, 1) 0%);
 }
 
 
@@ -10,17 +14,17 @@
   height: 5%;
   padding: 1.5rem 0.5rem;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+  background: radial-gradient(circle,rgba(91, 111, 222, 1) 0%, rgba(112, 141, 204, 1) 74%);
+  color: var(--clr-sc-dark);
 
   .header-title{
-    color: var(--clr-pr-light);
     .mat-icon{
-      color: var(--clr-ac);
     }
   }
 }
 
 .main{
-  width: 100%;
+  width: 80%;
   height: 95%;
   padding:1rem;
 }
