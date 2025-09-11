@@ -30,7 +30,7 @@ export async function register(req:Request,res:Response){
     maxAge: 60 * 60 * 1000 // 1 hour
   });
 
-  res.status(201).json({ id: u._id,firstName:u.firstName,lastName:u.lastName, email: u.email });
+  res.status(201).json({ id: u._id,firstName:u.firstName,lastName:u.lastName, email: u.email,token });
 
 }
 
@@ -53,6 +53,6 @@ export async function login(req:Request,res:Response){
     maxAge: 60 * 60 * 1000 // 1 hour
   });
 
-  res.json({id: user._id,firstName:user.firstName,lastName:user.lastName, email: user.email });
+  res.json({id: user._id,firstName:user.firstName,lastName:user.lastName, email: user.email,token });
 }
 

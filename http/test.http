@@ -25,3 +25,31 @@ Content-Type: application/json
 ### Get Tasks
 GET {{url}}/tasks
 Accept: application/json
+Authorization: Bearer {{tkn}}
+
+### Create Task
+POST {{url}}/tasks
+Content-Type: application/json
+Authorization: Bearer {{tkn}}
+
+{
+  "title": "New Task",
+  "description": "Task description",
+  "status": "pending"
+}
+
+### Update Task
+PUT {{url}}/tasks/68c2a479e0e5d2d5aa132940
+Content-Type: application/json
+Authorization: Bearer {{tkn}}
+
+{
+  "title": "My Task",
+  "description": "Updated description",
+  "status": "completed"
+}
+
+### Delete Task
+DELETE {{url}}/tasks/68c29fededc0749fbc367043
+Authorization: Bearer {{tkn}}
+
