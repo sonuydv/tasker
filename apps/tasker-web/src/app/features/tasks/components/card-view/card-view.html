@@ -1,22 +1,3 @@
 @for (task of tasks(); track task.id) {
-  <mat-card class="card">
-    <mat-card-header class="card-header fx-r ">
-      <mat-card-title>{{task.title}}</mat-card-title>
-      <button class="status-btn ml-auto fx-r">
-        {{task.status}}
-        <mat-icon>arrow_drop_down_circle</mat-icon>
-      </button>
-    </mat-card-header>
-    <mat-card-content class="fx-grow card-content">
-      <p>{{task.description}}</p>
-    </mat-card-content>
-    <mat-card-actions class="mt-auto fx-r-end">
-      <button mat-icon-button>
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button>
-        <mat-icon>delete</mat-icon>
-      </button>
-    </mat-card-actions>
-  </mat-card>
+  <task-view [task]="task"></task-view>
 }

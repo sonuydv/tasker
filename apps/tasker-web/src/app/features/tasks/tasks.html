@@ -1,15 +1,24 @@
 <header class="fx-r">
   <div class="fx-r gap-05">
     <h2>All</h2>
-    <button mat-icon-button>
+    <button matTooltip="Change View" mat-icon-button>
       <mat-icon>arrow_drop_down_circle</mat-icon>
     </button>
   </div>
-  <div class="search-bar fx-r gap-05">
+  <div  class="search-bar ml-auto fx-r gap-05">
     <mat-icon>search</mat-icon>
     <input placeholder="Search tasks..." />
   </div>
-  <button class="ml-auto add-btn fx-r">
+  <div matTooltip="Filter tasks by status" class="filter-bar fx-r">
+    <mat-icon>filter_list</mat-icon>
+    <select>
+      <option value="all">All</option>
+      <option value="pending">Pending</option>
+      <option value="in-progress">In Progress</option>
+      <option value="complete">Complete</option>
+    </select>
+  </div>
+  <button matTooltip="Create New Task" (click)="onAddNew()" matRipple class="add-btn fx-r">
     New Task
     <mat-icon>add</mat-icon>
   </button>
@@ -26,7 +35,10 @@
         <app-board-view [tasks]="tasks()"></app-board-view>
       }
     } @else {
-      <p>Not Found!</p>
+      <div class="wf hf fx-clm-hr-vr-cn">
+        <h4>No Tasks found!</h4>
+        <p>Create new task by clicking on create new button</p>
+      </div>
     }
   }
 </section>

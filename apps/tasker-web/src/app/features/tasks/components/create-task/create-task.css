@@ -1,34 +1,26 @@
-:host{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5f8fd;
-}
-.auth-wrapper{
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
-}
-
-.card-body{
+:host {
   min-width: 400px;
-  padding-bottom: 1rem;
-
-  .form-container{
-    padding: 0 1.5rem 0.5rem 1.5rem;
-  }
+  min-height: 450px;
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+  color: var(--clr-pr);
 }
 
-.form-field{
+form {
+  width: 100%;
+}
+
+.form-field {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.5em;
 
-  input{
+  input {
     padding: 4px 6px;
     height: 40px;
     font-size: 1.06rem;
@@ -37,31 +29,31 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
   }
 
-  .text-danger{
+  textarea {
+    width: 100%;
+    height: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+    padding: 4px;
+    border-radius: 5px;
+  }
+
+  .text-danger {
     color: #c41111;
   }
 }
 
 .btn{
   width: 100%;
+  padding: 1rem 2rem;
   border-radius: 5px;
-  padding: 0.8rem 1rem;
-  outline: none;
-  border: none;
-}
-
-.btn{
-  background:   rgba(0, 122, 204, 1);
   color: white;
-}
-.btn:hover{
-  cursor: pointer;
+  background: var(--clr-ac);
 }
 
-.btn:disabled{
+.btn:disabled {
   cursor: not-allowed;
 }
-
 
 .loader {
   width: 20px;

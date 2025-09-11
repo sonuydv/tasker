@@ -1,7 +1,10 @@
 import { Action, createPropertySelectors, State, StateContext } from '@ngxs/store';
 import { TasksStoreModel } from './tasks-store.model';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TasksActions } from './tasks.actions';
+import { TasksApi } from '../api/tasks.api';
+import { delay, tap } from 'rxjs';
+import { TaskModel } from '@tasker/shared';
 
 @State<TasksStoreModel>({
   name: 'tasks',
@@ -15,6 +18,8 @@ import { TasksActions } from './tasks.actions';
 export class TasksStore {
 
   static slices = createPropertySelectors<TasksStoreModel>(TasksStore);
+
+  private readonly taskApi = inject(TasksApi);
 
   @Action(TasksActions.OnTasksLoadSuccess)
   onTasksLoadSuccess(ctx: StateContext<TasksStoreModel>, action: TasksActions.OnTasksLoadSuccess) {
@@ -31,6 +36,38 @@ export class TasksStore {
       isLoading: false,
       error: action.error
     });
+  }
+
+  @Action(TasksActions.AddTask)
+  addTask(ctx: StateContext<TasksStoreModel>,{task}:TasksActions.AddTask) {
+    return this.taskApi.createTask(task).pipe(
+      tap(task=>ctx.patchState({tasks:[...ctx.getState().tasks,task]}))
+    );
+  }
+
+  @Action(TasksActions.UpdateTask)
+  updateTask(ctx:StateContext<TasksStoreModel>,{task}:TasksActions.UpdateTask){
+    return this.taskApi.updateTask(task.id!,task)
+      .pipe(
+        tap(task=>ctx.patchState({tasks:this.updatedTasks(task,ctx.getState().tasks)}))
+      )
+  }
+
+  @Action(TasksActions.DeleteTask)
+  deleteTask(ctx:StateContext<TasksStoreModel>,{taskId}:TasksActions.DeleteTask){
+   return this.taskApi.deleteTask(taskId).pipe(
+     delay(500),
+     tap(()=>ctx.patchState({tasks:this.deletedTasks(taskId,ctx.getState().tasks)}))
+   )
+  }
+
+
+  private updatedTasks(task:TaskModel,tasks:TaskModel[]){
+    return tasks.map(item => item.id === task.id ? { ...item, ...task} : item);
+  }
+
+  private deletedTasks(taskId:string,tasks:TaskModel[]){
+    return tasks.filter(item => item.id !== taskId);
   }
 
 }

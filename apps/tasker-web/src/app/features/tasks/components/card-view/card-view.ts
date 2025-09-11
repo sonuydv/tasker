@@ -10,6 +10,7 @@ import {
 } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
+import { TaskView } from '../task-view/task-view';
 
 @Component({
   selector: 'app-card-view',
@@ -22,6 +23,7 @@ import { MatIconButton } from '@angular/material/button';
     MatIcon,
     MatIconButton,
     MatCardActions,
+    TaskView,
   ],
   templateUrl: './card-view.html',
   styleUrl: './card-view.css',

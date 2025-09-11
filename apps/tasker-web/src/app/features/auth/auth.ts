@@ -39,7 +39,7 @@ export class Auth {
     this.buildForm();
   }
 
-  buildForm() {
+  buildForm()   {
     if (this.mode === 'register') {
       this.form = this.fb.group({
         firstName: ['', [Validators.required, Validators.minLength(4)]],

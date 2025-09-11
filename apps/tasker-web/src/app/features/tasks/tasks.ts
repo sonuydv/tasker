@@ -7,11 +7,15 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { CardView } from './components/card-view/card-view';
 import { BoardView } from './components/board-view/board-view';
+import { MatRipple } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @NgModule({
   imports:[
     NgxsModule.forFeature([TasksStore])
-  ]
+  ],
+  providers:[TasksApi]
 })
 export class TasksModule {}
 
@@ -19,8 +23,17 @@ export class TasksModule {}
   selector: 'app-tasks',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TasksModule, MatIcon, MatIconButton, CardView, BoardView],
-  providers: [TasksApi, TasksEffects],
+  imports: [
+    TasksModule,
+    MatIcon,
+    MatIconButton,
+    CardView,
+    BoardView,
+    MatRipple,
+    FormsModule,
+    MatTooltip,
+  ],
+  providers: [TasksEffects],
   templateUrl: './tasks.html',
   styleUrl: './tasks.css',
 })
@@ -37,5 +50,9 @@ export class Tasks implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new TasksActions.OnTasksOpened());
+  }
+
+  onAddNew() {
+    this.store.dispatch(new TasksActions.OnClickCreateNewTask());
   }
 }

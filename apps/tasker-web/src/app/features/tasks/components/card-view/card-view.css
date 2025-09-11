@@ -6,34 +6,3 @@
   flex-wrap: wrap;
   gap: 1rem;
 }
-
-.card{
-  color: var(--clr-pr);
-  width: 300px;
-  height: 300px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-  background: var(--clr-sc-dark);
-
-  .card-header{
-    padding: 0.8rem 1rem;
-
-    .status-btn{
-      border: none;
-      padding: 2px 8px;
-      gap: 0;
-      border-radius: 4px;
-
-      .mat-icon{
-        transform: scale(0.6);
-      }
-    }
-
-  }
-
-  .card-content{
-    background: var(--clr-sc);
-    padding: 0.5rem 0.9rem;
-    font-size: 0.9rem;
-  }
-
-}

@@ -19,18 +19,29 @@ export namespace TasksActions {
     }
   }
 
+
+  export class OnClickCreateNewTask{
+    static readonly type = '[Tasks] On Click Create New Task';
+  }
+
   export class AddTask {
     static readonly type = '[Tasks] Add Task';
-    constructor(public payload: { title: string; description: string }) {}
+    constructor(public task:Partial<TaskModel>) {}
   }
 
   export class UpdateTask {
     static readonly type = '[Tasks] Update Task';
-    constructor(public payload: { id: number; title?: string; description?: string }) {}
+    constructor(public task:Partial<TaskModel>) {}
+  }
+
+  export class OnDeleteTaskClicked {
+    static readonly type = '[Tasks] On Delete Task clicked';
+    constructor(public taskId:string) {
+    }
   }
 
   export class DeleteTask {
     static readonly type = '[Tasks] Delete Task';
-    constructor(public payload: { id: number }) {}
+    constructor(public taskId:string) {}
   }
 }

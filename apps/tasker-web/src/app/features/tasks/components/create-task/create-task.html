@@ -1,0 +1,33 @@
+<h2>
+  @if (existingTask){Update Task} @else {Create Task}
+</h2>
+
+<form [formGroup]="form" class="fx-clm" (ngSubmit)="onSubmit()">
+  <div class="form-field">
+    <label class="form-label">Title</label>
+    <input type="text" formControlName="title" class="form-control" />
+    @if(form.controls['title']?.invalid && form.controls['title']?.touched) {
+      <small class="text-danger">Title is required</small>
+    }
+  </div>
+
+
+  <div class="form-field">
+    <label class="form-label">Description</label>
+    <textarea type="text" formControlName="description" class="form-control">
+    </textarea>
+    @if(form.controls['description']?.invalid && form.controls['description']?.touched) {
+      <small class="text-danger">Description is required</small>
+    }
+  </div>
+
+  <button class="btn fx-r-cn" type="submit" [disabled]="isLoading() || form.invalid">
+    @if (isLoading()){
+      <div class="loader"></div>
+    } @else {
+      @if (existingTask){Update} @else {Create}
+    }
+  </button>
+
+</form>
+

@@ -15,9 +15,8 @@ export namespace MainActions{
     }
   }
 
-  export class SetUserInfo{
-    static readonly type = '[MainStore] Set User Info';
-    constructor(public userInfo:any){}
+  export class OnLogoutClicked{
+    static readonly type = '[MainStore] Logout Clicked';
   }
 
 }

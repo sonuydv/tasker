@@ -1,8 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, ofActionDispatched, Store } from '@ngxs/store';
 import { TasksActions } from './tasks.actions';
-import { catchError, switchMap, throwError } from 'rxjs';
+import { catchError, filter, finalize, map, switchMap, tap, throwError } from 'rxjs';
 import { TasksApi } from '../api/tasks.api';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateTask } from '../components/create-task/create-task';
+import { ConfirmService } from '../../shared/confirm.service';
+import { LoaderService } from '../../shared/global-loader/loader.service';
 
 
 @Injectable()
@@ -10,6 +14,9 @@ export class TasksEffects {
 
   private readonly store = inject(Store);
   private readonly tasksApi = inject(TasksApi);
+  private readonly dialog = inject(MatDialog);
+  private readonly confirm = inject(ConfirmService);
+  private readonly loader = inject(LoaderService);
 
   constructor() {
     const actions$ = inject(Actions);
@@ -25,6 +32,32 @@ export class TasksEffects {
         this.store.dispatch(new TasksActions.OnTaskLoadFailure(err.message));
         return throwError(()=>err)
       })
+    ).subscribe();
+
+
+
+    /*On Click create new task handler*/
+    actions$.pipe(
+      ofActionDispatched(TasksActions.OnClickCreateNewTask),
+      switchMap(action=>
+        this.dialog.open(CreateTask).afterClosed())
+    ).subscribe();
+
+
+    /*On Delete task click handler*/
+    actions$.pipe(
+      ofActionDispatched(TasksActions.OnDeleteTaskClicked),
+      switchMap(action=>
+        this.confirm.confirm({
+          title:'Confirm Delete',
+          message:"Are you sure you want to delete the task?"})
+          .pipe(filter(res=>!!res),map(()=>action.taskId))
+      ),
+      tap(()=>this.loader.show()),
+      switchMap(taskId=>
+        this.store.dispatch(new TasksActions.DeleteTask(taskId))
+          .pipe(finalize(()=>this.loader.hide()))
+      )
     ).subscribe();
 
   }

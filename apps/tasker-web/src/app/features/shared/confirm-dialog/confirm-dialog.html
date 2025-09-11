@@ -1,0 +1,14 @@
+<mat-card class="card">
+  <mat-card-header class="card-header">
+    <mat-card-title>{{data.title??'Title'}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="card-content">
+    {{data.message??'Message'}}
+  </mat-card-content>
+  <mat-card-footer class="mt-auto fx-r">
+    <mat-card-actions class="ml-auto fx-r gap-2">
+      <button [matDialogClose]="false" mat-flat-button>{{data.negativeBtn??'Cancel'}}</button>
+      <button [matDialogClose]="true" class="p-btn" mat-flat-button>{{data.positionBtn??'Ok'}}</button>
+    </mat-card-actions>
+  </mat-card-footer>
+</mat-card>

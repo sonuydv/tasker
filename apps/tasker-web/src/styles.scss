@@ -163,3 +163,14 @@ h1,h2,h3,h4,h5,h6,p,a,span,div{
 .gap-1{gap: 1em;}
 .gap-15{gap: 1.5em;}
 .gap-2{gap: 2em;}
+
+
+
+/*-----Common styles------*/
+button{
+  border: none;
+}
+
+button:hover{
+  cursor: pointer;
+}
