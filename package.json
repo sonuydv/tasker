@@ -9,6 +9,8 @@
     "@angular/compiler": "~20.2.0",
     "@angular/core": "~20.2.0",
     "@angular/forms": "~20.2.0",
+    "@angular/material": "^20.2.2",
+    "@angular/cdk": "^20.2.2",
     "@angular/platform-browser": "~20.2.0",
     "@angular/platform-browser-dynamic": "~20.2.0",
     "@angular/router": "~20.2.0",

@@ -17,20 +17,23 @@ html, body {
   padding: 0 !important;
 }
 
+h1,h2,h3,h4,h5,h6,p,a,span,div{
+  margin: 0;
+  padding: 0;
+  margin-block: 0 !important;
+}
 
 /*-----color theme-------*/
 :root{
-  --clr-ac-dark: #303f9f;
-  --clr-ac: #3f51b5;
-  --clr-ac-light: #c5cae9;
+  --clr-ac-dark: #025f9d;
+  --clr-ac: #027BCCFF;
+  --clr-ac-light: #55b7f8;
 
-  --clr-sc: #607d8b;
-  --clr-sc-dark: #455a64;
-  --clr-sc-light: #cfd8dc;
-  --clr-sc-lighter: #eceff1;
-  --clr-sc2: #78909c;
-  --clr-sc3: #90a4ae;
-  --clr-sc4: #f5f5f5;
+  --clr-sc-dark:  #f5f8fd;
+  --clr-sc: white;
+
+  --clr-pr : black;
+  --clr-pr-light: #484747;
 
   --clr-wt: #ffffff;
   --clr-bl: #000000;
@@ -57,9 +60,9 @@ html, body {
 
 
 /*----------Padding--------------------*/
-.p-0-5{padding: 0.5em};
-.p1{padding: 1em};
-.p1-5{padding: 1.5em};
+.p-05{padding: 0.5em};
+.p-1{padding: 1em};
+.p-15{padding: 1.5em};
 
 
 /*----------Margin--------------------*/
@@ -149,3 +152,10 @@ html, body {
   align-items: center;
   gap: 1em;
 }
+
+
+/*------------gap--------------*/
+.gap-05{gap: 0.5em;}
+.gap-1{gap: 1em;}
+.gap-15{gap: 1.5em;}
+.gap-2{gap: 2em;}
