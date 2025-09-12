@@ -52,10 +52,7 @@ export class CreateTask {
       if (this.existingTask) {
         this.store
           .dispatch(
-            new TasksActions.UpdateTask({
-              ...this.existingTask,
-              ...this.form.value,
-            })
+            new TasksActions.UpdateTask(this.existingTask.id, this.form.value)
           )
           .pipe(finalize(() => this.isLoading.set(false)))
           .subscribe({

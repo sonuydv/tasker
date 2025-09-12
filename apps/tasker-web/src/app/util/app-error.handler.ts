@@ -9,7 +9,7 @@ export class AppErrorHandler extends ErrorHandler{
 
   override handleError(error: unknown): void {
     if(error instanceof AppError) {
-      this.notification.error(error.message);
+      this.notification.error(error.message??'something went wrong');
     }
     super.handleError(error);
   }

@@ -10,6 +10,7 @@ import { BoardView } from './components/board-view/board-view';
 import { MatRipple } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
+import { TaskModel } from '@tasker/shared';
 
 @NgModule({
   imports:[
@@ -55,4 +56,14 @@ export class Tasks implements OnInit {
   onAddNew() {
     this.store.dispatch(new TasksActions.OnClickCreateNewTask());
   }
+
+
+  onTaskStatusUpdate(update: {taskId:string,changes:Partial<TaskModel>}) {
+    this.store.dispatch(new TasksActions.OnTaskStatusUpdateRequest(update.taskId, update.changes));
+  }
+
+  onTaskUpdate(task:TaskModel){
+    this.store.dispatch(new TasksActions.OnTaskUpdateRequested(task));
+  }
+
 }

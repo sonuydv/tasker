@@ -4,6 +4,8 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import authController from './auth/auth.controller';
 import tasksController from './tasks/tasks.controller';
+import { errorHandler } from './error/error.handler';
+import { notFound } from './error/not-found.handler';
 
 
 export default function createApp(){
@@ -13,17 +15,20 @@ export default function createApp(){
   app.use(cookieParser());
 
   app.use(cors({origin: 'http://localhost:4200', credentials: true}));
-
-
   //Routes
   app.use('/api/auth',authController);
   app.use('/api/tasks',tasksController);
+  /*Not found*/
+  app.use('/api',notFound)
+  /*Global Error handler*/
+  app.use(errorHandler);
 
   // Serve Angular build
   app.use(express.static(path.join(__dirname, 'frontend')));
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend/index.html'));
   });
+
 
   return app;
 }

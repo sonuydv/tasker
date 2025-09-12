@@ -46,8 +46,8 @@ export class TasksStore {
   }
 
   @Action(TasksActions.UpdateTask)
-  updateTask(ctx:StateContext<TasksStoreModel>,{task}:TasksActions.UpdateTask){
-    return this.taskApi.updateTask(task.id!,task)
+  updateTask(ctx:StateContext<TasksStoreModel>,{taskId,changes}:TasksActions.UpdateTask){
+    return this.taskApi.updateTask(taskId,changes)
       .pipe(
         tap(task=>ctx.patchState({tasks:this.updatedTasks(task,ctx.getState().tasks)}))
       )

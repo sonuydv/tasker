@@ -29,13 +29,23 @@ export namespace TasksActions {
     constructor(public task:Partial<TaskModel>) {}
   }
 
-  export class UpdateTask {
-    static readonly type = '[Tasks] Update Task';
-    constructor(public task:Partial<TaskModel>) {}
+  export class OnTaskUpdateRequested {
+    static readonly type = '[Tasks] On Task Update Requested';
+    constructor(public task:TaskModel) {}
   }
 
-  export class OnDeleteTaskClicked {
-    static readonly type = '[Tasks] On Delete Task clicked';
+  export class OnTaskStatusUpdateRequest{
+    static readonly type = '[Tasks] On Task Status Update Request';
+    constructor(public taskId:string, public changes:Partial<TaskModel>) {}
+  }
+
+  export class UpdateTask {
+    static readonly type = '[Tasks] Update Task';
+    constructor(public taskId:string, public changes:Partial<TaskModel>) {}
+  }
+
+  export class OnDeleteTaskRequested {
+    static readonly type = '[Tasks] On Delete Task Requested';
     constructor(public taskId:string) {
     }
   }

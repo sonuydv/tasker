@@ -22,7 +22,7 @@ export class TasksApi {
   }
 
   updateTask(taskId: string, task: Partial<TaskModel>) {
-    return this.http.put<TaskModel>(`${this.apiUrl}/tasks/${taskId}`, task);
+    return this.http.patch<TaskModel>(`${this.apiUrl}/tasks/${taskId}`, task);
   }
 
   deleteTask(taskId: string) {

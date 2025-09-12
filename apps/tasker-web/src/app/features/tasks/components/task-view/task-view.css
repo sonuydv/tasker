@@ -27,6 +27,18 @@
         transform: scale(0.6);
       }
     }
+    .status-btn.pending{
+      background: var(--clr-ac);
+      color:white;
+    }
+    .status-btn.in-progress{
+      background: var(--clr-warning);
+      color: white;
+    }
+    .status-btn.completed{
+      background: var(--clr-success);
+      color: white;
+    }
 
   }
 

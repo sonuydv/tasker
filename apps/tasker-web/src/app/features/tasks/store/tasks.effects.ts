@@ -46,7 +46,7 @@ export class TasksEffects {
 
     /*On Delete task click handler*/
     actions$.pipe(
-      ofActionDispatched(TasksActions.OnDeleteTaskClicked),
+      ofActionDispatched(TasksActions.OnDeleteTaskRequested),
       switchMap(action=>
         this.confirm.confirm({
           title:'Confirm Delete',
@@ -60,6 +60,25 @@ export class TasksEffects {
       )
     ).subscribe();
 
+    /*On task status updated requested*/
+    actions$.pipe(
+      ofActionDispatched(TasksActions.OnTaskStatusUpdateRequest),
+      tap(()=>this.loader.show()),
+      switchMap(action=>
+        this.store.dispatch(new TasksActions.UpdateTask(action.taskId, action.changes))
+          .pipe(finalize(()=>this.loader.hide()))
+      )
+    ).subscribe();
+
+    /*OnTask update request*/
+    actions$.pipe(
+      ofActionDispatched(TasksActions.OnTaskUpdateRequested),
+      switchMap(action=>
+        this.dialog.open(CreateTask,{data:action.task}).afterClosed())
+    ).subscribe();
+
   }
+
+
 
 }

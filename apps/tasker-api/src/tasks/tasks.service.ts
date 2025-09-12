@@ -17,26 +17,43 @@ export async function createTask(req:any,res:Response){
   if(!title || !userId){
     return res.status(400).json({message:"Title and User are required"});
   }
-  const newTask = new TaskModel({title,description,status,user:userId})
-  await newTask.save();
-  res.status(201).json(newTask);
+  try{
+    const newTask = new TaskModel({title,description,status,user:userId})
+    await newTask.save();
+    res.status(201).json(newTask);
+  }catch (error){
+    if (error.code === 11000) {
+      res.status(400).json({message:"Duplicate task title"});
+    }else{
+      res.status(400).json({message:"Error creating task"});
+    }
+  }
 }
 
 export async function updateTask(req:Request,res:Response){
   const { id } = req.params;
-  const { title, description, status } = req.body;
+  const changes = req.body;
 
-  const task = await TaskModel.findByIdAndUpdate(
-    id,
-    { $set: { title, description, status } },
-    { new: true, runValidators: true }
-  );
+  try {
+    const task = await TaskModel.findByIdAndUpdate(
+      id,
+      { $set: {...changes} },
+      { new: true, runValidators: true }
+    );
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
 
-  if (!task) {
-    return res.status(404).json({ message: "Task not found" });
+    res.json(task);;
+  }catch (error){
+    if (error.code === 11000) {
+      res.status(400).json({message:"Duplicate task title"});
+    }else{
+      res.status(400).json({message:"Error updating task"});
+    }
   }
 
-  res.json(task);;
+
 }
 
 export async function deleteTask(req:Request,res:Response){

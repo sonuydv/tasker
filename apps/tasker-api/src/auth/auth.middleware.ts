@@ -21,7 +21,7 @@ export function authMiddleware(req: AuthRequest, res: Response, next: NextFuncti
       return res.status(401).json({ message: 'Invalid token' });
     }
   } else {
-    return res.status(401).json({ message: 'No token provided' });
+    return res.status(401).json({ message: 'Unauthenticated request' });
   }
 }
 

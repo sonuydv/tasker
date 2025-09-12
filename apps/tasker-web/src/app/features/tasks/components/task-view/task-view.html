@@ -2,7 +2,9 @@
   <mat-card class="card">
     <mat-card-header class="card-header fx-r ">
       <mat-card-title>{{item.title}}</mat-card-title>
-      <button matTooltip="Update status" class="status-btn ml-auto fx-r">
+      <button [matMenuTriggerFor]="statusMenu"
+              [ngClass]="item.status"
+              matTooltip="Update status" class="status-btn ml-auto fx-r">
         {{item.status}}
         <mat-icon>arrow_drop_down_circle</mat-icon>
       </button>
@@ -11,7 +13,8 @@
       <p>{{item.description}}</p>
     </mat-card-content>
     <mat-card-actions class="card-footer mt-auto fx-r-end">
-      <button matTooltip="Edit Task" mat-icon-button>
+      <button (click)="onUpdateRequest.emit(item)"
+              matTooltip="Edit Task" mat-icon-button>
         <mat-icon>edit</mat-icon>
       </button>
       <button matTooltip="Delete Task" (click)="onDelete(item.id)" mat-icon-button>
@@ -20,3 +23,11 @@
     </mat-card-actions>
   </mat-card>
 }
+
+<mat-menu #statusMenu="matMenu">
+  @for (status of getAvailableStatuses(task()!);track status){
+    <button (click)="selectStatus(status)" mat-menu-item>
+      {{ status }}
+    </button>
+  }
+</mat-menu>

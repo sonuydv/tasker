@@ -30,7 +30,9 @@
   } @else {
     @if(tasks().length > 0){
       @if (viewMode() === 'default') {
-        <app-card-view [tasks]="tasks()"></app-card-view>
+        <app-card-view (onChangeStatus)="onTaskStatusUpdate($event)"
+                       (onUpdateRequest)="onTaskUpdate($event)"
+                       [tasks]="tasks()"></app-card-view>
       } @else {
         <app-board-view [tasks]="tasks()"></app-board-view>
       }

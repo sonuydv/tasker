@@ -11,7 +11,7 @@ import { withNgxsLoggerPlugin } from '@ngxs/logger-plugin';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppErrorHandler } from './util/app-error.handler';
 import { environment } from '../environments/environment';
-import { errorInterceptor } from './util/http.interceptors';
+import {sessionAuthInterceptor } from './util/http.interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,7 +22,7 @@ export const appConfig: ApplicationConfig = {
       withNgxsLoggerPlugin({disabled:false}),
       withNgxsReduxDevtoolsPlugin(),
       ),
-    provideHttpClient(withInterceptors([errorInterceptor])),
+    provideHttpClient(withInterceptors([sessionAuthInterceptor])),
     {
       provide:'API_URL',
       useValue:environment.apiUrl

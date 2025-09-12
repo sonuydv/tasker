@@ -39,13 +39,11 @@ Authorization: Bearer {{tkn}}
 }
 
 ### Update Task
-PUT {{url}}/tasks/68c2a479e0e5d2d5aa132940
+PATCH {{url}}/tasks/68c30c0cf092b3021ac64439
 Content-Type: application/json
 Authorization: Bearer {{tkn}}
 
 {
-  "title": "My Task",
-  "description": "Updated description",
   "status": "completed"
 }
 
