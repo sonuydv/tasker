@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, NgModule, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, NgModule, OnInit, signal } from '@angular/core';
 import { NgxsModule, Store } from '@ngxs/store';
 import { TasksStore } from './store';
 import { TasksActions, TasksEffects } from './store';
@@ -8,9 +8,10 @@ import { MatIconButton } from '@angular/material/button';
 import { CardView } from './components/card-view/card-view';
 import { BoardView } from './components/board-view/board-view';
 import { MatRipple } from '@angular/material/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
 import { TaskModel } from '@tasker/shared';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @NgModule({
   imports:[
@@ -33,6 +34,7 @@ export class TasksModule {}
     MatRipple,
     FormsModule,
     MatTooltip,
+    ReactiveFormsModule,
   ],
   providers: [TasksEffects],
   templateUrl: './tasks.html',
@@ -44,10 +46,26 @@ export class Tasks implements OnInit {
 
   private readonly store = inject(Store);
 
-  protected tasks = this.store.selectSignal(TasksStore.slices.tasks);
+  protected originalTasks = this.store.selectSignal(TasksStore.slices.tasks);
   protected isLoading = this.store.selectSignal(TasksStore.slices.isLoading);
 
-  protected viewMode = signal<'default' | 'board'>('default');
+  protected tasks = computed(()=>{
+    const searchTerm = this.searchTerm()?.toLowerCase() ?? '';
+    const allTasks = this.originalTasks();
+    if(!searchTerm) return allTasks;
+    return allTasks.filter(t=>t.title.toLowerCase().includes(searchTerm) || t.description?.toLowerCase().includes(searchTerm));
+  });
+
+  protected viewMode
+    = signal<'default' | 'board'>('default');
+
+  protected searchCtrl = new FormControl('');
+  protected searchTerm
+    = toSignal(this.searchCtrl.valueChanges);
+
+  protected statusFilter
+    = signal<'all' |'in-progress' | 'completed' | 'pending'>('all');
+
 
   ngOnInit(): void {
     this.store.dispatch(new TasksActions.OnTasksOpened());
@@ -57,13 +75,18 @@ export class Tasks implements OnInit {
     this.store.dispatch(new TasksActions.OnClickCreateNewTask());
   }
 
-
-  onTaskStatusUpdate(update: {taskId:string,changes:Partial<TaskModel>}) {
-    this.store.dispatch(new TasksActions.OnTaskStatusUpdateRequest(update.taskId, update.changes));
+  onChange(ev:any){
+    this.statusFilter.set(ev.target.value);
   }
 
-  onTaskUpdate(task:TaskModel){
+
+  onTaskStatusUpdate(update: { taskId: string; changes: Partial<TaskModel> }) {
+    this.store.dispatch(
+      new TasksActions.OnTaskStatusUpdateRequest(update.taskId, update.changes)
+    );
+  }
+
+  onTaskUpdate(task: TaskModel) {
     this.store.dispatch(new TasksActions.OnTaskUpdateRequested(task));
   }
-
 }

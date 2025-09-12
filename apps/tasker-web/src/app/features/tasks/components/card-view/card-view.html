@@ -2,4 +2,8 @@
   <task-view (onChangeStatus)="onChangeStatus.emit($event)"
              (onUpdateRequest)="onUpdateRequest.emit($event)"
              [task]="task"></task-view>
+}@empty {
+  <div class="wf hf fx-clm-hr-vr-cn">
+    <p>Not found!</p>
+  </div>
 }

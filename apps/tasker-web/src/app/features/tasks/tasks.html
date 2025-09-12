@@ -7,15 +7,16 @@
   </div>
   <div  class="search-bar ml-auto fx-r gap-05">
     <mat-icon>search</mat-icon>
-    <input placeholder="Search tasks..." />
+    <input [formControl]="searchCtrl"
+           placeholder="Search tasks..." />
   </div>
   <div matTooltip="Filter tasks by status" class="filter-bar fx-r">
     <mat-icon>filter_list</mat-icon>
-    <select>
+    <select (change)="onChange($event)" >
       <option value="all">All</option>
       <option value="pending">Pending</option>
       <option value="in-progress">In Progress</option>
-      <option value="complete">Complete</option>
+      <option value="completed">Complete</option>
     </select>
   </div>
   <button matTooltip="Create New Task" (click)="onAddNew()" matRipple class="add-btn fx-r">
@@ -28,11 +29,12 @@
   @if (isLoading()) {
     <p>Loading ...</p>
   } @else {
-    @if(tasks().length > 0){
+    @if(originalTasks().length > 0){
       @if (viewMode() === 'default') {
         <app-card-view (onChangeStatus)="onTaskStatusUpdate($event)"
                        (onUpdateRequest)="onTaskUpdate($event)"
-                       [tasks]="tasks()"></app-card-view>
+                       [statusFilter]="statusFilter()"
+                       [srcTasks]="tasks()"></app-card-view>
       } @else {
         <app-board-view [tasks]="tasks()"></app-board-view>
       }
