@@ -21,6 +21,15 @@
     .mat-icon{
     }
   }
+
+  .active-sessions{
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 0.8rem;
+    border: 1px solid var(--clr-sc-dark);
+  }
+
 }
 
 .main{
@@ -28,3 +37,5 @@
   height: 95%;
   padding:1rem;
 }
+
+

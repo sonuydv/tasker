@@ -54,4 +54,20 @@ export namespace TasksActions {
     static readonly type = '[Tasks] Delete Task';
     constructor(public taskId:string) {}
   }
+
+  export class AddTaskSocket {
+    static readonly type = '[Tasks] Add Task Socket';
+    constructor(public task:TaskModel) {}
+  }
+
+  export class UpdateTaskSocket {
+    static readonly type = '[Tasks] Update Task Socket';
+    constructor(public task:TaskModel) {}
+  }
+
+  export class OnDeleteTaskSocket {
+    static readonly type = '[Tasks] On Delete Task Socket';
+    constructor(public taskId:string) {}
+  }
+
 }

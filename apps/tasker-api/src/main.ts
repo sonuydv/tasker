@@ -4,7 +4,7 @@ import createApp from './app';
 import * as http from 'node:http';
 import config from './config';
 import { logger } from 'nx/src/utils/logger';
-import { attachSocket } from './sockets/socket';
+import { attachSocket } from './sockets';
 
 async function start(){
   const app = createApp();

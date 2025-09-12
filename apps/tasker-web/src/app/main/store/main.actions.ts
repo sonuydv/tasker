@@ -19,4 +19,12 @@ export namespace MainActions{
     static readonly type = '[MainStore] Logout Clicked';
   }
 
+  export class OnActiveSessionsUpdated{
+    static readonly type = '[MainStore] Active Sessions Updated';
+    constructor(
+      public count:number
+    ) {
+    }
+  }
+
 }

@@ -2,5 +2,6 @@ import { UserModel } from '@tasker/shared';
 
 
 export interface MainStoreModel {
-  userInfo?:UserModel
+  userInfo?:UserModel,
+  activeSessions:number
 }

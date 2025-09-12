@@ -62,6 +62,28 @@ export class TasksStore {
   }
 
 
+  @Action(TasksActions.AddTaskSocket)
+  addTaskSocket(ctx: StateContext<TasksStoreModel>,{task}:TasksActions.AddTaskSocket) {
+    const exists = ctx.getState().tasks.find(item => item.id === task.id);
+    if (exists) {
+      return;
+    }
+    ctx.patchState({
+      tasks: [...ctx.getState().tasks, task]
+    });
+  }
+
+  @Action(TasksActions.UpdateTaskSocket)
+  updateTaskSocket(ctx:StateContext<TasksStoreModel>,{task}:TasksActions.UpdateTaskSocket){
+    ctx.patchState({tasks:this.updatedTasks(task,ctx.getState().tasks)});
+  }
+
+  @Action(TasksActions.OnDeleteTaskSocket)
+  onDeleteTaskSocket(ctx:StateContext<TasksStoreModel>,{taskId}:TasksActions.OnDeleteTaskSocket){
+    ctx.patchState({tasks:this.deletedTasks(taskId,ctx.getState().tasks)});
+  }
+
+
   private updatedTasks(task:TaskModel,tasks:TaskModel[]){
     return tasks.map(item => item.id === task.id ? { ...item, ...task} : item);
   }

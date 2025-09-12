@@ -7,7 +7,8 @@ import { MainActions } from './main.actions';
 @State<MainStoreModel>({
   name: 'main',
   defaults: {
-    userInfo: undefined
+    userInfo: undefined,
+    activeSessions:0
   }
 })
 @Injectable()
@@ -22,6 +23,11 @@ export class MainStore{
     ctx.patchState({userInfo:user});
   }
 
+  @Action(MainActions.OnActiveSessionsUpdated)
+  onActiveSessionsUpdated(ctx:StateContext<MainStoreModel>,
+                          {count}:MainActions.OnActiveSessionsUpdated){
+    ctx.patchState({activeSessions:count});
+  }
 
 
 }
