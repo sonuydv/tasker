@@ -14,7 +14,7 @@ export default function createApp(){
   app.use(express.json());
   app.use(cookieParser());
 
-  app.use(cors({origin: 'http://localhost:4200', credentials: true}));
+  // app.use(cors({origin: 'http://localhost:4200', credentials: true}));
   //Routes
   app.use('/api/auth',authController);
   app.use('/api/tasks',tasksController);

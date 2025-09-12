@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: apps/tasker-api/Dockerfile
+    restart: always
     ports:
       - "3000:3000"
     environment:
@@ -16,11 +17,12 @@ services:
   mongo:
     image: mongo:7
     command: ["mongod", "--quiet"]
+    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: passwd
-    ports:
-      - "27017:27017"
+#    ports:
+#      - "27017:27017"
     volumes:
       - mongo_data:/data/db
 

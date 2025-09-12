@@ -25,9 +25,9 @@ export async function register(req:Request,res:Response){
   // Send token as HTTP-only cookie
   res.cookie('token', token, {
     httpOnly: true,
-    path:'/api',
-    sameSite: 'none',
-    maxAge: 60 * 60 * 1000 // 1 hour
+    secure: false,
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 1000
   });
 
   res.status(201).json({ id: u._id,firstName:u.firstName,lastName:u.lastName, email: u.email,token });
@@ -51,7 +51,7 @@ export async function login(req:Request,res:Response){
   res.cookie('token', token, {
     httpOnly: true,
     secure: false,
-    sameSite: config.nodeEnv !== 'development' ? 'none' : 'lax',
+    sameSite: 'lax',
     maxAge: 60 * 60 * 1000
   });
 
