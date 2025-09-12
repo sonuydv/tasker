@@ -23,6 +23,10 @@ h1,h2,h3,h4,h5,h6,p,a,span,div{
   margin-block: 0 !important;
 }
 
+:root{
+  font-size: 16px;
+}
+
 /*-----color theme-------*/
 :root{
   --clr-ac-dark: #025f9d;
@@ -33,7 +37,7 @@ h1,h2,h3,h4,h5,h6,p,a,span,div{
   --clr-sc: white;
 
   --clr-pr : #5e5d5d;
-  --clr-pr-light: #484747;
+  --clr-pr-light: #888787;
 
   --clr-wt: #ffffff;
   --clr-bl: #000000;
@@ -179,4 +183,24 @@ button{
 
 button:hover{
   cursor: pointer;
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

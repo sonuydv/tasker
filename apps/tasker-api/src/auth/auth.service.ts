@@ -38,9 +38,9 @@ export async function login(req:Request,res:Response){
   const loginUser = req.body as LoginUserDto;
   const user
     = await getUserByEmail(loginUser.email);
-  if (!user) return res.status(401).json({ message: 'User email not found!' });
+  if (!user) return res.status(400).json({ message: 'User email not found!' });
   const match = await comparePassword(loginUser.password, user.password);
-  if (!match) return res.status(401).json({ message: 'Password does not match!' });
+  if (!match) return res.status(400).json({ message: 'Password does not match!' });
 
   const token = jwt.sign(
     { id: user._id, email: user.email },
